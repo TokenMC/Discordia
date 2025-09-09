@@ -16,7 +16,8 @@ local US_PER_S = US_PER_MS * MS_PER_S
 local DISCORD_EPOCH = constants.DISCORD_EPOCH
 
 local function offset()
-	return os.difftime(os.time(), os.time(os.date('!*t')))
+	local utc = os.date('!*t') ---@cast utc osdate
+	return os.difftime(os.time(), os.time(utc))
 end
 
 local function decompose(a, b, c)
@@ -225,14 +226,14 @@ end
 function Date:toTable()
 	local sec, usec = self:toParts()
 	local tbl = toDate('*t', sec)
-	tbl.usec = usec
+	tbl.usec = usec ---@diagnostic disable-line:inject-field
 	return tbl
 end
 
 function Date:toTableUTC()
 	local sec, usec = self:toParts()
 	local tbl = toDate('!*t', sec)
-	tbl.usec = usec
+	tbl.usec = usec ---@diagnostic disable-line:inject-field
 	return tbl
 end
 

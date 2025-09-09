@@ -19,7 +19,7 @@ local function checkDigits(obj, inputBase, makeCopy)
 
 	if t == 'number' then
 
-		local n = typing.checkInteger(obj, inputBase, 0, 2^64)
+		local n = typing.checkInteger(obj, inputBase, 0)
 		return Digits.fromNumber(n, 2)
 
 	elseif t == 'string' then
@@ -53,7 +53,7 @@ local function checkDigits(obj, inputBase, makeCopy)
 
 	elseif t == 'nil' then
 
-		return Digits.fromNumber(0, 2)
+		return Digits(2)
 
 	end
 
@@ -95,7 +95,7 @@ end
 function BitArray:toTable(filter)
 	local tbl = {}
 	for k, v in pairs(typing.checkType('table', filter)) do
-		tbl[k] = self:hasBit(v)
+		tbl[k] = self:has(v)
 	end
 	return tbl
 end
@@ -119,26 +119,26 @@ function BitArray:__eq(other)
 	return true
 end
 
-function BitArray:hasBit(n)
+function BitArray:has(n)
 	n = checkBit(n)
 	return self._digits[n] == 1
 end
 
-function BitArray:enableBit(n)
+function BitArray:enable(n)
 	n = checkBit(n)
 	self._digits:fill(n - 1)
 	self._digits[n] = 1
 end
 
-function BitArray:disableBit(n)
+function BitArray:disable(n)
 	n = checkBit(n)
 	self._digits[n] = 0
 	self._digits:trim()
 end
 
-function BitArray:toggleBit(n)
+function BitArray:toggle(n)
 	n = checkBit(n)
-	self._digits[n] = math.abs(self._digits[n] - 1)
+	self._digits[n] = self._digits[n] == 0 and 1 or 0
 	self._digits:trim()
 end
 
@@ -161,7 +161,7 @@ function BitArray:difference(other)
 	local b = checkDigits(other)
 	local c = Digits(2)
 	for i in ipairs(b) do
-		c[i] = math.abs(b[i] - 1)
+		c[i] = b[i] == 0 and 1 or 0
 	end
 	c = a:bitop(c, 'AND')
 	return BitArray(c)

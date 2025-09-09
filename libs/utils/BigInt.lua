@@ -398,7 +398,7 @@ function BigInt:__pow(other)
 		repeat
 			c = c:getProduct(a)
 			i:subtractInPlace(one)
-			sign = math.abs(sign - 1)
+			sign = sign == 0 and 1 or 0
 		until #i == 0
 		c.sign = sign == 1 and sign or nil
 	end

@@ -47,23 +47,23 @@ do
 
 	local b = BitArray()
 
-	b:enableBit(5)
-	assertTrue(b:hasBit(5))
+	b:enable(5)
+	assertTrue(b:has(5))
 	assertEqual(b:toBin(), '10000')
 	assertEqual(b:toBin(8), '00010000')
 
-	b:toggleBit(4)
-	assertTrue(b:hasBit(4))
+	b:toggle(4)
+	assertTrue(b:has(4))
 	assertEqual(b:toBin(), '11000')
 	assertEqual(b:toBin(8), '00011000')
 
-	b:toggleBit(4)
-	assertFalse(b:hasBit(4))
+	b:toggle(4)
+	assertFalse(b:has(4))
 	assertEqual(b:toBin(), '10000')
 	assertEqual(b:toBin(8), '00010000')
 
-	b:disableBit(5)
-	assertFalse(b:hasBit(5))
+	b:disable(5)
+	assertFalse(b:has(5))
 	assertEqual(b:toBin(), '0')
 	assertEqual(b:toBin(8), '00000000')
 
@@ -84,7 +84,7 @@ do
 	assertTrue(t.green)
 	assertTrue(t.blue)
 
-	b:disableBit(colors.blue)
+	b:disable(colors.blue)
 	t = b:toTable(colors)
 	assertTrue(t.red)
 	assertTrue(t.green)
@@ -101,16 +101,16 @@ assertEqual(b1:symmetricDifference(b2):toBin(4), '1100')
 
 local b3 = BitArray()
 for i = 1, 64 do
-	b3:enableBit(i)
-	assertTrue(b3:hasBit(i))
-	b3:disableBit(i)
-	assertFalse(b3:hasBit(i))
+	b3:enable(i)
+	assertTrue(b3:has(i))
+	b3:disable(i)
+	assertFalse(b3:has(i))
 end
 
 local b4 = BitArray {1, 2, 4}
-assertTrue(b4:hasBit(1))
-assertTrue(b4:hasBit(2))
-assertTrue(b4:hasBit(4))
+assertTrue(b4:has(1))
+assertTrue(b4:has(2))
+assertTrue(b4:has(4))
 assertEqual(b4:toBin(), '1011')
 
 assertTrue(BitArray(1) == BitArray(1))
@@ -123,7 +123,6 @@ for _, v in ipairs {
 	{'-1', 10, 'expected minimum 0, received -1'},
 	{'1.1', 10, 'expected integer, received 1.1'},
 	{'-1.1', 10, 'expected integer, received -1.1'},
-	{2^65, 10, 'expected maximum 1.844674407371e+19, received 3.6893488147419e+19'},
 	{'a', 10, 'expected integer, received string'},
 	{'b', 10, 'expected integer, received string'},
 } do
@@ -133,8 +132,8 @@ end
 
 local b = BitArray()
 
-assertError(function() return b:enableBit(0) end, 'expected minimum 1, received 0')
-assertError(function() return b:enableBit(-1) end, 'expected minimum 1, received -1')
+assertError(function() return b:enable(0) end, 'expected minimum 1, received 0')
+assertError(function() return b:enable(-1) end, 'expected minimum 1, received -1')
 assertError(function() return b:toString(2, 0) end, 'expected minimum 1, received 0')
 assertError(function() return b:toString(2, -1) end, 'expected minimum 1, received -1')
 assertError(function() return b:toBin(0) end, 'expected minimum 1, received 0')

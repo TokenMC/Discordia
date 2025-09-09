@@ -41,6 +41,7 @@ end
 
 function Emitter:emit(eventName, ...)
 	local listeners = self._listeners[checkType('string', eventName)]
+	if #listeners == 0 then return end
 	local copy = {}
 	local i = 1
 	while listeners[i] do
@@ -52,7 +53,7 @@ function Emitter:emit(eventName, ...)
 		end
 	end
 	for _, listener in ipairs(copy) do
-		listener.callback(...)
+		coroutine.wrap(listener.callback)(...)
 	end
 end
 
@@ -90,6 +91,7 @@ end
 function Emitter:waitFor(eventName, timeout, predicate)
 
 	eventName = checkType('string', eventName)
+	timeout = timeout and checkNumber(timeout, 10, 0)
 	predicate = predicate and checkCallable(predicate)
 
 	local t, listener
@@ -114,7 +116,7 @@ function Emitter:waitFor(eventName, timeout, predicate)
 	end)
 
 	if timeout then
-		t = setTimeout(checkNumber(timeout, 10, 0), complete, false)
+		t = setTimeout(timeout, complete, false)
 	end
 
 	return coroutine.yield()

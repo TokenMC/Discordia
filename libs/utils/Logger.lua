@@ -68,9 +68,7 @@ function Logger:setFile(path)
 	if self._file then
 		uv.fs_close(self._file)
 	end
-	if path then
-		self._file = uv.fs_open(path, 'a', MODE)
-	end
+	self._file = path and uv.fs_open(path, 'a', MODE) or nil
 end
 
 function Logger:enableColors()

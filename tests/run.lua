@@ -1,9 +1,11 @@
 require('./test-class')
 
 require('./test-bigint')
+require('./test-bitarray')
 require('./test-color')
 require('./test-emitter')
 require('./test-iterable')
+require('./test-map')
 require('./test-mutex')
 require('./test-logger')
 require('./test-time')

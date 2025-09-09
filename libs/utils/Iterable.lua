@@ -1,5 +1,5 @@
 local class = require('../class')
-local typing = require('typing')
+local typing = require('../typing')
 
 local checkType, checkCallable = typing.checkType, typing.checkCallable
 

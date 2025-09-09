@@ -11,7 +11,7 @@ local function enum(tbl)
 	return setmetatable({}, {
 		__index = function(_, k)
 			if tbl[k] == nil then
-				return error('invalid enumeration name: ' .. tostring(k))
+				return error(string.format('invalid enumeration name: %s', k))
 			end
 			return tbl[k]
 		end,
@@ -25,19 +25,14 @@ local function enum(tbl)
 				return k, v
 			end
 		end,
-		__call = function(_, v)
-			if tbl[v] then
+		__call = function(self, v)
+			if tbl[v] ~= nil then
 				return tbl[v]
+			elseif call[v] ~= nil then
+				return v
+			else
+				return error(string.format('invalid %s: %s', names[self], v))
 			end
-			local n = tonumber(v)
-			if call[n] then
-				return n
-			end
-			local s = tostring(v)
-			if call[s] then
-				return s
-			end
-			return error('invalid enumeration: ' .. tostring(v))
 		end,
 		__tostring = function(self)
 			return 'enumeration: ' .. names[self]
@@ -47,14 +42,12 @@ end
 
 local enums = {}
 local proxy = setmetatable({}, {
-	__index = function(_, k)
-		return enums[k]
-	end,
+	__index = enums,
 	__newindex = function(_, k, v)
 		if enums[k] then
 			return error('cannot overwrite enumeration')
 		end
-		v = enum(v)
+		v = assert(enum(v))
 		names[v] = k
 		enums[k] = v
 	end,

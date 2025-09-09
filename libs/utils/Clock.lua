@@ -14,7 +14,7 @@ function Clock:start(utc)
 	local fmt = utc and '!*t' or '*t'
 	local prev = os.date(fmt)
 	self._interval = helpers.setInterval(1000, function()
-		local now = os.date(fmt)
+		local now = os.date(fmt) ---@cast now osdate
 		for k, v in pairs(now) do
 			if v ~= prev[k] then
 				self:emit(k, now)
