@@ -1,6 +1,5 @@
 local class = require('../class')
 local enums = require('../enums')
-local endpoints = require('../endpoints')
 local typing = require('../typing')
 local package = require('../../package')
 
