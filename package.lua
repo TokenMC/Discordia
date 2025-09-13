@@ -31,7 +31,7 @@ return {
 	},
 	tags = {'discord', 'api'},
 	license = 'MIT',
-	author = 'Sinister Rectus',
+	author = 'SinisterRectus',
 	files = {
 		"!test*",
 	},
