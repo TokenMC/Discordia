@@ -1,6 +1,6 @@
-# Discordia
+# LuaCord
 
-**Discord API library written in Lua for the Luvit runtime environment**
+**Discord API library written in Lua for the Luvit runtime environment and modified for features and stability**
 
 ### Introduction
 
@@ -8,16 +8,16 @@
 
 **[Luvit](https://luvit.io)** is an open-source, asynchronous I/O Lua runtime environment. It is a combination of [LuaJIT](http://luajit.com/) and [libuv](http://libuv.org/), layered with various libraries to provide server-side functionality similar to that of [Node.js](https://nodejs.org/en/), but with Lua instead of JavaScript. Luvit's companion package manager, lit, makes it easy to set up the Luvit runtime and its published libraries.
 
-Discordia is a Lua wrapper for the official Discord API, and provides a high-level, object-oriented, event-driven interface for developing Discord bots. By using Lua's native coroutines, asynchronous HTTP and WebSocket communication is internally abstracted in a way that allows end-users to write blocking-style code without blocking I/O operations.
+Luacord is a fork of discordia which is a Lua wrapper for the official Discord API, and provides a high-level, object-oriented, event-driven interface for developing Discord bots. By using Lua's native coroutines, asynchronous HTTP and WebSocket communication is internally abstracted in a way that allows end-users to write blocking-style code without blocking I/O operations. Optimized even more and more updated than ever for optimal performance and stabilty!
 
 Join the [Discord API](https://discord.gg/NKM3XmF) server to discuss Discordia and other Discord libraries!
 
-Join the independent [Discordia](https://discord.gg/EzRYYDW) server for more!
+Join the independent [Discordia](https://discord.gg/EzRYYDW) server and also Join the [LuaCord](https://discord.gg/wV2cAZRAs4)
 
 ### Installation
 
 - To install Luvit, visit https://luvit.io and follow the instructions provided for your platform.
-- To install Discordia, run `lit install SinisterRectus/discordia`
+- To install Luacord, download the zip file, extract and more info on docs!
 - Run your bot script using, for example, `luvit bot.lua`
 
 ### Example
